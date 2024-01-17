@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user list</title>
+</head>
+<body>
+    <h1>Hello reqres users</h1>
+    <table id='data-table' border =1>
+        <thead>
+            <tr>
+            <th>email</th>
+            <th>firstname</th>
+            <th>lastname</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for post in data%}
+            <tr>
+                <td>{{post.email}} </td>
+                <td>{{post.firstname}} </td>
+                <td>{{post.lastname}} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+
+    $(document).ready(function(){
+        var csrftoken = $("[name=csrfmiddlewaretoken]")
+
+        $.ajax({
+            method : 'GET',
+            url :'list',
+            datatype:'json',
+            headers:{
+                'X-CSRFToken':csrftoken
+            },
+            success: function (response) {
+                console.log('response')
+                for (var i =o; i<response.data.lenght; i++){
+                    $('#data-table tbody').append(`<tr>
+                        <td>${response.data[i].email}</td>
+                        <td>${response.data[i].user.firstname}</td>
+                        <td>${response.data[i].user.lastname}</td>
+                    </tr>`
+                }
+            }
+        })
+    })
+
+
+
+</script>

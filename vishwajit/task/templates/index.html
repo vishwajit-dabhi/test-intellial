@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>authentication</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <form id = 'user-data'>
+        {% csrf_token %}
+        email: <input type='email' name = 'email', id='email'><br/>
+        password : <input type ='password' , name='password', id='password'><br/>
+        firstname: <input type='firstname' name = 'firstname', id='firstname'><br/>
+        lastname: <input type='lastname' name = 'lastname', id='lastname'><br/>
+        <input type='submit' ,name='submit',value='submit'>
+    </form>
+
+
+    <thead>
+        <th></th>
+    </thead>
+</body>
+</html>
+
+
+<script>
+
+   
+    $('#user-data').submit(function(){
+        var email  = $("#email").val()
+        var password  = $("#password").val()
+        var firstname = $("#firstname").val()
+        var lastname = $("#lastname").val()
+        var csrftoken = $("[name=csrfmiddlewaretoken]")
+        data={
+            "email": "eve.holt@reqres.in",
+            "password": "cityslicka",
+        },
+            window.location.href="/list";
+            alert("login Successfully")
+        
+        if ("email"== "eve.holt@reqres.in","password"== "cityslicka"){
+            $.ajax({
+            method :'POST',
+            url: "https://reqres.in/api/users",
+            datatype:'json',
+            data:data,
+            headers:{
+                "X-CSRFToken":csrftoken,
+            },
+            success:function(response){
+                console.log("Successfully logged in",response);
+                window.location.href="/list";
+                alert("login Successfully")
+            },
+            error:function(error){
+                console.log(error)
+            }
+
+        })
+    }   
+    })
+
+
+</script>
